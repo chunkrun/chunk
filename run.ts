@@ -1,3 +1,7 @@
+export type JsonSerializable = {
+  [key: string]: string | number | boolean | JsonSerializable;
+};
+
 export type RunContext = {
   run_id: string;
   chunk_id: string;
@@ -5,8 +9,11 @@ export type RunContext = {
   trigger_type: "http" | "schedule" | "manual";
 };
 
-export type RunResponse = {
-  [key: string]: string | number | boolean | RunResponse;
-};
+export type RunPayload = JsonSerializable;
 
-export type run = (context: RunContext) => RunResponse | Promise<RunResponse>;
+export type RunResponse = JsonSerializable;
+
+export type RunFunction = (
+  context: RunContext,
+  payload?: RunPayload
+) => RunResponse | void | Promise<RunResponse | void>;
