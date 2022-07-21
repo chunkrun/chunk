@@ -25,6 +25,7 @@ export const runChunk = async (
   try {
     const res = await fetch(`https://live.chunk.run/${slug}`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     }).then((r) => r.json());
     return res;
